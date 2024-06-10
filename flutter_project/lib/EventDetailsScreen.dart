@@ -9,37 +9,7 @@ class EventDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 70,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("lib/assets/bg1.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        title: Row(
-          children: [
-            Image.asset(
-              'lib/assets/logo.png',
-              width: 80,
-              height: 80,
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Text(
-                'NonChalant University',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontFamily: 'Times New Roman',
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
+        title: Text('Event Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

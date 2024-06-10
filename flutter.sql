@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2024 at 06:31 PM
+-- Generation Time: Jun 10, 2024 at 01:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -80,7 +80,7 @@ CREATE TABLE `events` (
   `event_id` int(11) NOT NULL,
   `event_title` varchar(255) DEFAULT NULL,
   `event_description` varchar(255) DEFAULT NULL,
-  `event_date` date DEFAULT NULL
+  `event_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -88,10 +88,10 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`event_id`, `event_title`, `event_description`, `event_date`) VALUES
-(1, 'Seminar', 'Guest Speaker', '2024-05-01'),
-(2, 'Workshop', 'Hands-on training', '2024-05-05'),
-(3, 'Conference', 'Panel Discussion', '2024-05-07'),
-(5, 'BirthDay', 'Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,', '2024-05-29');
+(1, 'Seminar', 'Guest Speaker', '2024-05-01 00:00:00'),
+(2, 'Workshop', 'Hands-on training', '2024-05-05 00:00:00'),
+(3, 'Conference', 'Panel Discussion', '2024-05-07 00:00:00'),
+(5, 'BirthDay', 'Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,Happy Birthday,', '2024-05-29 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -114,14 +114,14 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `first_name`, `last_name`, `year`, `status`, `user_pass`, `user_id`) VALUES
-(1, 'John', 'Doe', 1, 'Regular', 'default', '2024-24-001'),
-(2, 'Jane', 'Doe', 1, 'Irregular', 'default', '2024-24-002'),
-(3, 'Alice', 'Smith', 2, 'Regular', 'default', '2023-23-001'),
-(4, 'Bob', 'Johnson', 2, 'Irregular', 'default', '2023-23-002'),
-(5, 'Emily', 'Brown', 3, 'Regular', 'default', '2022-22-001'),
-(6, 'David', 'Wilson', 3, 'Irregular', 'default', '2022-22-002'),
-(7, 'Sarah', 'Jones', 4, 'Regular', 'default', '2021-21-001'),
-(8, 'Michael', 'Martinez', 4, 'Irregular', 'default', '2021-21-002');
+(1, 'John', 'Doe', 1, 'Regular', 'default', '24-24-001'),
+(2, 'Jane', 'Doe', 1, 'Irregular', 'default', '24-24-002'),
+(3, 'Alice', 'Smith', 2, 'Regular', 'default', '23-23-001'),
+(4, 'Bob', 'Johnson', 2, 'Irregular', 'default', '23-23-002'),
+(5, 'Emily', 'Brown', 3, 'Regular', 'default', '22-22-001'),
+(6, 'David', 'Wilson', 3, 'Irregular', 'default', '22-22-002'),
+(7, 'Sarah', 'Jones', 4, 'Regular', 'default', '21-21-001'),
+(8, 'Michael', 'Martinez', 4, 'Irregular', 'default', '21-21-002');
 
 --
 -- Indexes for dumped tables
@@ -189,8 +189,8 @@ ALTER TABLE `students`
 -- Constraints for table `enrollments`
 --
 ALTER TABLE `enrollments`
-  ADD CONSTRAINT `enrollments_ibfk_10` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `enrollments_ibfk_9` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `enrollments_ibfk_11` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enrollments_ibfk_12` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

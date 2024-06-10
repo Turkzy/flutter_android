@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_project/Navbar.dart';
-import 'EventDetailsScreen.dart'; // Import the EventDetailsScreen file
-import 'ChatBotScreen.dart'; // Import the ChatBotScreen file
+import 'Navbar.dart'; // Import your custom Navbar widget
+import 'EventDetailsScreen.dart'; // Ensure the file name matches the actual file
+import 'ChatBotScreen.dart'; // Ensure the file name matches the actual file
 
 class DashboardScreen extends StatefulWidget {
+  final String userId;
+
+  DashboardScreen({required this.userId}); // Accept userId as a parameter
+
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
@@ -31,7 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> fetchEvents() async {
     final response =
-    await http.get(Uri.parse('http://192.168.179.120:5000/events'));
+    await http.get(Uri.parse('http://192.168.61.120:5000/events'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -46,7 +50,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Navbar(),
       appBar: AppBar(
         toolbarHeight: 70,
         flexibleSpace: Container(
@@ -80,6 +83,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
       ),
+      drawer: Navbar(userId: widget.userId), // Use your custom Navbar widget here
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -177,7 +181,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatBotScreen()),
+            MaterialPageRoute(
+              builder: (context) => ChatBotScreen(userId: widget.userId),
+            ),
           );
         },
         tooltip: 'Chat Bot',
