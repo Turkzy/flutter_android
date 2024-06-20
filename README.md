@@ -30,7 +30,8 @@ to make it work just change the hardcoded IPADDRESS
 
 STEPS:
 - Open CMD at your computer and type ipconfig and copy the IPv4 Address. . . . . . . . . . . : 192.168.254.103 (Note: Only 192.168.254.103)
-#In the flutter_project
+  
+In the flutter_project
 - main.dart Line 167 change the ipaddress (Uri.parse('http://192.168.254.103:5000/login'),)  THIS IS FOR LOGIN
 - dashboart_screen.dart Line 45 and 67 (Uri.parse('http://192.168.254.103:5000/students/${widget.userId}/info'), and this Uri.parse('http://192.168.254.103:5000/events')) THIS IS FOR EVENT CALENDAR
 - student_grade_screen.dart Line 31 (Uri.parse('http://192.168.254.103:5000/grades/$year/${widget.userId}'))
