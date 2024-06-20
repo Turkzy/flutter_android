@@ -37,6 +37,12 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
     }
   }
 
+  Future<void> _refreshStudentInfo() async {
+    setState(() {
+      _futureStudentInfo = _fetchStudentInfo();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -81,41 +87,44 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
           ),
         ),
         body: Center(
-          child: FutureBuilder<Map<String, dynamic>>(
-            future: _futureStudentInfo,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
-                );
-              } else {
-                final studentInfo = snapshot.data!;
-                final courseName = studentInfo['course_name'];
-                final gender = studentInfo['gender'];
-                final birthday = studentInfo['birthday'];
-                final status = studentInfo['status'];
+          child: RefreshIndicator(
+            onRefresh: _refreshStudentInfo,
+            child: FutureBuilder<Map<String, dynamic>>(
+              future: _futureStudentInfo,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                } else {
+                  final studentInfo = snapshot.data!;
+                  final courseName = studentInfo['course_name'];
+                  final gender = studentInfo['gender'];
+                  final birthday = studentInfo['birthday'];
+                  final status = studentInfo['status'];
 
-                return ListView(
-                  padding: EdgeInsets.all(16.0),
-                  children: <Widget>[
-                    _buildInfoTile('Student Name', studentInfo['student_name']),
-                    _buildInfoTile('Address', studentInfo['address']),
-                    _buildInfoTile('Gender', _parseGender(gender)),
-                    _buildInfoTile('Birthday', _parseDate(birthday)),
-                    _buildInfoTile('Cellphone', studentInfo['cellphone']),
-                    _buildInfoTile('Email', studentInfo['email']),
-                    _buildInfoTile('Mother\'s Name', studentInfo['mother_name']),
-                    _buildInfoTile('Mother\'s Contact', studentInfo['mother_contact']),
-                    _buildInfoTile('School Graduated', studentInfo['school_graduated']),
-                    _buildInfoTile('Blood Type', studentInfo['blood_type']),
-                    _buildInfoTile('Course', courseName),
-                    _buildInfoTile('Status', _parseStatus(status)),
-                  ],
-                );
-              }
-            },
+                  return ListView(
+                    padding: EdgeInsets.all(16.0),
+                    children: <Widget>[
+                      _buildInfoTile('Student Name', studentInfo['student_name']),
+                      _buildInfoTile('Address', studentInfo['address']),
+                      _buildInfoTile('Gender', _parseGender(gender)),
+                      _buildInfoTile('Birthday', _parseDate(birthday)),
+                      _buildInfoTile('Cellphone', studentInfo['cellphone']),
+                      _buildInfoTile('Email', studentInfo['email']),
+                      _buildInfoTile('Mother\'s Name', studentInfo['mother_name']),
+                      _buildInfoTile('Mother\'s Contact', studentInfo['mother_contact']),
+                      _buildInfoTile('School Graduated', studentInfo['school_graduated']),
+                      _buildInfoTile('Blood Type', studentInfo['blood_type']),
+                      _buildInfoTile('Course', courseName),
+                      _buildInfoTile('Status', _parseStatus(status)),
+                    ],
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),

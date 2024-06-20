@@ -29,6 +29,22 @@ class _StudentScheduleScreenState extends State<StudentScheduleScreen> {
       if (response.statusCode == 200) {
         List<Map<String, dynamic>> schedules = List<Map<String, dynamic>>.from(json.decode(response.body));
 
+        // Sort schedules by year and semester
+        schedules.sort((a, b) {
+          // Compare years first
+          int yearComparison = a['year'].compareTo(b['year']);
+          if (yearComparison != 0) {
+            return yearComparison;
+          }
+
+          // If years are the same, compare semesters
+          List<String> semesterOrder = ['1st semester', '2nd semester', 'summer semester'];
+          int semesterIndexA = semesterOrder.indexOf(a['semester']);
+          int semesterIndexB = semesterOrder.indexOf(b['semester']);
+
+          return semesterIndexA.compareTo(semesterIndexB);
+        });
+
         // Group schedules by year and semester
         Map<String, Map<String, List<Map<String, dynamic>>>> groupedSchedules = {};
 
@@ -45,6 +61,13 @@ class _StudentScheduleScreenState extends State<StudentScheduleScreen> {
           }
 
           groupedSchedules[year]![semester]!.add(schedule);
+        });
+
+        // Sort schedules by description within each semester
+        groupedSchedules.forEach((year, semesters) {
+          semesters.forEach((semester, schedules) {
+            schedules.sort((a, b) => a['description'].compareTo(b['description']));
+          });
         });
 
         // Convert to list format for easy access in UI

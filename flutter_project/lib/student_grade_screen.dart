@@ -62,6 +62,38 @@ class _StudentGradeScreenState extends State<StudentGradeScreen> {
     });
   }
 
+  double calculateGWA(List<Map<String, dynamic>> grades) {
+    double totalWeightedGrades = 0.0;
+    int totalUnits = 0;
+
+    for (var grade in grades) {
+      double courseGrade = double.tryParse(grade['course_grade'].toString()) ?? 0.0;
+      int units = int.tryParse(grade['units'].toString()) ?? 0;
+      totalWeightedGrades += courseGrade * units;
+      totalUnits += units;
+    }
+
+    return totalUnits > 0 ? totalWeightedGrades / totalUnits : 0.0;
+  }
+
+  double calculateOverallGWA(List<Map<String, List<Map<String, dynamic>>>> allGrades) {
+    double totalWeightedGrades = 0.0;
+    int totalUnits = 0;
+
+    for (var gradesByYear in allGrades) {
+      for (var grades in gradesByYear.values) {
+        for (var grade in grades) {
+          double courseGrade = double.tryParse(grade['course_grade'].toString()) ?? 0.0;
+          int units = int.tryParse(grade['units'].toString()) ?? 0;
+          totalWeightedGrades += courseGrade * units;
+          totalUnits += units;
+        }
+      }
+    }
+
+    return totalUnits > 0 ? totalWeightedGrades / totalUnits : 0.0;
+  }
+
   Widget buildGradeTable(List<Map<String, dynamic>> grades) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -136,7 +168,11 @@ class _StudentGradeScreenState extends State<StudentGradeScreen> {
                   child: Text(
                     grade['remarks']?.toString() ?? '',
                     style: TextStyle(
-                      color: grade['remarks'] == 'Passed' ? Colors.green : (grade['remarks'] == null || grade['remarks'].isEmpty) ? Colors.black : Colors.red,
+                      color: grade['remarks'] == 'Passed'
+                          ? Colors.green
+                          : (grade['remarks'] == null || grade['remarks'].isEmpty)
+                          ? Colors.black
+                          : Colors.red,
                     ),
                   ),
                 ),
@@ -149,13 +185,11 @@ class _StudentGradeScreenState extends State<StudentGradeScreen> {
     );
   }
 
-
-
   Widget buildSemesterSection(String semester, List<Map<String, dynamic>> grades) {
     if (grades.isEmpty) {
-      return Center(
-      );
+      return SizedBox.shrink();
     }
+    double gwa = calculateGWA(grades);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -171,6 +205,14 @@ class _StudentGradeScreenState extends State<StudentGradeScreen> {
           constraints: BoxConstraints(maxWidth: double.infinity),
           child: buildGradeTable(grades),
         ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'GWA: ${gwa.toStringAsFixed(2)}',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Divider(color: Colors.grey),
       ],
     );
   }
@@ -185,7 +227,7 @@ class _StudentGradeScreenState extends State<StudentGradeScreen> {
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.data!.isEmpty) {
-          return Center(child: Text('No grades available for $year'));
+          return SizedBox.shrink();
         } else {
           final gradesBySemester = snapshot.data!;
           return Column(
@@ -205,6 +247,7 @@ class _StudentGradeScreenState extends State<StudentGradeScreen> {
               SizedBox(height: 16),
               buildSemesterSection('Summer Semester', gradesBySemester['Summer Semester']!),
               SizedBox(height: 100),
+              Divider(color: Colors.black),
             ],
           );
         }
@@ -215,73 +258,91 @@ class _StudentGradeScreenState extends State<StudentGradeScreen> {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      // Wrap your Scaffold with Theme to customize AppBar
-      data: Theme.of(context).copyWith(
+        // Wrap your Scaffold with Theme to customize AppBar
+        data: Theme.of(context).copyWith(
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent, // Transparent background
-          elevation: 0, // No shadow
+        backgroundColor: Colors.transparent, // Transparent background
+        elevation: 0, // No shadow
           iconTheme: IconThemeData(color: Colors.white), // Set back button color
         ),
-      ),
+        ),
       child: Scaffold(
-      appBar: AppBar(
-      title: Row(
-      children: [
-      Text(
-      'Student Grades',
-      style: TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Times New Roman',
-        color: Colors.white,
-      ),
-    ),
-    ],
-    ),
-    toolbarHeight: 70,
-    flexibleSpace: Stack(
-    children: [
-    Container(
-    decoration: BoxDecoration(
-    image: DecorationImage(
-    image: AssetImage("lib/assets/bg1.jpg"),
-    fit: BoxFit.cover,
-    ),
-    ),
-    ),
-    Container(
-    color: Colors.black.withOpacity(0.5), // Dark overlay
-    ),
-    ],
-    ),
-    ),
-
-    body: Container(
-    color: Colors.lightBlue[50], // Light blue background color
-    child: RefreshIndicator(
-    onRefresh: refreshGrades,
-    child: InteractiveViewer(
-    constrained: true,
-    scaleEnabled: true,
-    minScale: 0.1,
-    maxScale: 4.0,
-    child: SingleChildScrollView(
-    child: Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-    buildYearGradeSection('First Year', _futureFirstYearGrades),
-    buildYearGradeSection('Second Year', _futureSecondYearGrades),
-    buildYearGradeSection('Third Year', _futureThirdYearGrades),
-    buildYearGradeSection('Fourth Year', _futureFourthYearGrades),
-    ],
-    ),
-    ),
-    ),
-    ),
-    ),
-    ),
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text(
+                'Student Grades',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Times New Roman',
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          toolbarHeight: 70,
+          flexibleSpace: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("lib/assets/bg1.jpg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Container(
+                color: Colors.black.withOpacity(0.5), // Dark overlay
+              ),
+            ],
+          ),
+        ),
+        body: Container(
+          color: Colors.lightBlue[50], // Light blue background color
+          child: RefreshIndicator(
+            onRefresh: refreshGrades,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    buildYearGradeSection('First Year', _futureFirstYearGrades),
+                    buildYearGradeSection('Second Year', _futureSecondYearGrades),
+                    buildYearGradeSection('Third Year', _futureThirdYearGrades),
+                    buildYearGradeSection('Fourth Year', _futureFourthYearGrades),
+                    FutureBuilder<List<Map<String, List<Map<String, dynamic>>>>>(
+                      future: Future.wait([
+                        _futureFirstYearGrades,
+                        _futureSecondYearGrades,
+                        _futureThirdYearGrades,
+                        _futureFourthYearGrades
+                      ]),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        } else {
+                          final allGrades = snapshot.data!;
+                          final overallGWA = calculateOverallGWA(allGrades);
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Overall GWA: ${overallGWA.toStringAsFixed(2)}',
+                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

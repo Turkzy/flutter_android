@@ -4,6 +4,7 @@ import 'student_info_screen.dart';
 import 'student_schedule_screen.dart';
 import 'student_grade_screen.dart';
 import 'student_study_plan_screen.dart';
+import 'student_checklist_screen.dart'; // Import StudentChecklistScreen
 
 class ChatBotScreen extends StatefulWidget {
   final String userId;
@@ -95,6 +96,14 @@ class _ChatBotScreenState extends State<ChatBotScreen> with TickerProviderStateM
           context,
           MaterialPageRoute(
             builder: (context) => StudentStudyPlanScreen(userId: widget.userId),
+          ),
+        );
+        break;
+      case 'student checklist':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StudentChecklistScreen(userId: widget.userId), // Navigate to StudentChecklistScreen
           ),
         );
         break;
@@ -226,7 +235,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> with TickerProviderStateM
                         ElevatedButton(
                           onPressed: () => handleOptionSelection('student info'),
                           child: Text('Student Info', style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.w800
+                              color: Colors.blue, fontWeight: FontWeight.w800
                           ),),
                         ),
                         ElevatedButton(
@@ -244,6 +253,12 @@ class _ChatBotScreenState extends State<ChatBotScreen> with TickerProviderStateM
                         ElevatedButton(
                           onPressed: () => handleOptionSelection('student study plan'),
                           child: Text('Student Study Plan', style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.w800
+                          ),),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => handleOptionSelection('student checklist'),
+                          child: Text('Student Checklist', style: TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.w800
                           ),),
                         ),
