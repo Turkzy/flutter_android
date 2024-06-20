@@ -7,6 +7,7 @@ import Gradethirdyr from "./GradethirdyrModel.js";
 import Gradefourthyr from "./GradefourthyrModel.js";
 import Schedule from "./ScheduleModel.js";
 
+
 const Student = db.define('students', {
     student_id: {
         type: DataTypes.INTEGER,
@@ -31,7 +32,8 @@ const Student = db.define('students', {
     gradesecondtyr_id: DataTypes.INTEGER, 
     gradethirdyr_id: DataTypes.INTEGER, 
     gradefourthyr_id: DataTypes.INTEGER,
-    schedule_id: DataTypes.INTEGER
+    schedule_id: DataTypes.INTEGER,
+    
 }, {
     freezeTableName: true,
     timestamps: false
@@ -45,5 +47,8 @@ Student.belongsTo(Gradethirdyr, { foreignKey: 'gradethirdyr_id' });
 Student.belongsTo(Gradefourthyr, { foreignKey: 'gradefourthyr_id' });
 
 Student.belongsTo(Schedule, { foreignKey: 'schedule_id' });
+
+
+
 
 export default Student;

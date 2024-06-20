@@ -6,6 +6,7 @@ import CourseRoute from "./routes/CourseRoute.js";
 import GradeRoute from "./routes/GradeRoute.js";
 import ScheduleRoute from "./routes/ScheduleRoute.js"
 import db from "./config/Database.js";
+import StudyPlan from "./routes/StudyPlanRoute.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -18,6 +19,7 @@ app.use(EventRoute);
 app.use(CourseRoute);
 app.use(GradeRoute);
 app.use(ScheduleRoute)
+app.use(StudyPlan)
 
 const syncDatabase = async () => {
     try {

@@ -46,7 +46,7 @@ const Schedule = db.define('schedule', {
     year: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
 }, {
     freezeTableName: true,
     timestamps: false
