@@ -1,4 +1,4 @@
-Import the SQL first before runnind the backend server
+Import the SQL first before running the backend server
 
 Steps:
 - Download the SQL folder containing the SQL info of each students.
