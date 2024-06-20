@@ -39,3 +39,9 @@ In the flutter_project
 - student_schedule_screen.dart Line 24 (final url = Uri.parse('http://192.168.254.103:5000/schedules/${widget.userId}');)
 - student_study_plan_screen.dart Line 31 ( final url = Uri.parse('http://192.168.254.103:5000/grades/$year/${widget.userId}');)
 - after change all the IPADDRESS you may now run it Thank you!
+
+
+#VERSION USED#
+- Android Studio - Runtime Version 17.0.10+0--11572160 amd64
+- VS Code - Version 1.90.1
+- Flutter - 3.22.0
