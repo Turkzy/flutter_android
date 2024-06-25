@@ -24,7 +24,8 @@ export const getStudentInfo = async (req, res) => {
                 mother_contact: student.mother_contact,
                 school_graduated: student.school_graduated,
                 blood_type: student.blood_type,
-                status: student.status
+                status: student.status,
+                user_id: student.user_id
             });
         } else {
             res.status(404).json({ message: "Student not found" });
@@ -51,7 +52,7 @@ export const login = async (req, res) => {
             where: { user_id, user_pass }
         });
         if (student) {
-            res.status(200).json({ message: "Login successful" });
+            res.status(200).json({ message: "Login successful", status: student.status});
         } else {
             res.status(401).json({ message: "Invalid user ID or password" });
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2024 at 04:23 AM
+-- Generation Time: Jun 25, 2024 at 11:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -68,7 +68,7 @@ INSERT INTO `gradefirstyr` (`id`, `user_id`, `subject_code`, `description`, `uni
 (63, '2424002', 'GECS04', 'Mathematics in the Modern World', 3, '4.00', 'Passed', '1st semester'),
 (64, '2424002', 'NSTP1', 'National Service Training Program 1', 3, '4.00', 'Passed', '1st semester'),
 (65, '2424002', 'PE1', 'Movement Enhancement', 2, '3.75', 'Passed', '1st semester'),
-(66, '2424002', 'PHY121', 'Physics 1', 4, '2.00', 'Failed', '1st semester'),
+(66, '2424002', 'PHY121', 'Physics 1', 4, '1.00', 'Failed', '1st semester'),
 (67, '2424002', 'CHM111', 'General Chemistry', 4, '', '', '2nd semester'),
 (68, '2424002', 'ESC001', 'Computer Aided Drafting & Design', 2, '', '', '2nd semester'),
 (69, '2424002', 'GECS05', 'Purposive Communication', 3, '', '', '2nd semester'),

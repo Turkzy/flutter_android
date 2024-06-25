@@ -1,8 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
-import StudyPlan from "./StudyPlanModel.js";
 
-const Schedule = db.define('schedule', {
+const Checklist = db.define('checklist', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -20,25 +19,12 @@ const Schedule = db.define('schedule', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    day: {
-        type: DataTypes.STRING,
+    units: {
+        type: DataTypes.FLOAT,
         allowNull: false
     },
-    time: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    room: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    faculty: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    class_type: {
-        type: DataTypes.STRING,
-        allowNull: false
+    pre_requisite: {
+        type: DataTypes.STRING 
     },
     semester: {
         type: DataTypes.STRING,
@@ -48,12 +34,21 @@ const Schedule = db.define('schedule', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    studyplan_id: DataTypes.INTEGER,
+    lec: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lab: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    grade: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
 }, {
     freezeTableName: true,
     timestamps: false
 });
 
-Schedule.belongsTo(StudyPlan, { foreignKey: 'studyplan_id' });
-
-export default Schedule;
+export default Checklist;

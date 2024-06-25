@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2024 at 04:23 AM
+-- Generation Time: Jun 25, 2024 at 11:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -100,12 +100,12 @@ ALTER TABLE `students`
 -- Constraints for table `students`
 --
 ALTER TABLE `students`
-  ADD CONSTRAINT `students_ibfk_425` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `students_ibfk_426` FOREIGN KEY (`gradefirstyr_id`) REFERENCES `gradefirstyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `students_ibfk_427` FOREIGN KEY (`gradesecondtyr_id`) REFERENCES `gradesecondyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `students_ibfk_428` FOREIGN KEY (`gradethirdyr_id`) REFERENCES `gradethirdyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `students_ibfk_429` FOREIGN KEY (`gradefourthyr_id`) REFERENCES `gradefourthyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `students_ibfk_430` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `students_ibfk_593` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `students_ibfk_594` FOREIGN KEY (`gradefirstyr_id`) REFERENCES `gradefirstyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `students_ibfk_595` FOREIGN KEY (`gradesecondtyr_id`) REFERENCES `gradesecondyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `students_ibfk_596` FOREIGN KEY (`gradethirdyr_id`) REFERENCES `gradethirdyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `students_ibfk_597` FOREIGN KEY (`gradefourthyr_id`) REFERENCES `gradefourthyr` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `students_ibfk_598` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

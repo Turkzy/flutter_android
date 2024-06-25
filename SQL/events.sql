@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2024 at 04:23 AM
+-- Generation Time: Jun 25, 2024 at 11:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,10 +58,7 @@ INSERT INTO `events` (`event_id`, `event_title`, `event_description`, `event_dat
 (17, 'Literary Festival', 'Literary readings and workshops', '2025-03-20 00:00:00'),
 (18, 'International Food Day', 'Cultural celebration through food', '2024-12-15 00:00:00'),
 (19, 'Entrepreneurship Forum', 'Panel discussion on entrepreneurship', '2025-01-25 00:00:00'),
-(20, 'Environmental Awareness Week', 'Activities promoting environmental awareness', '2025-04-01 00:00:00'),
-(21, '123', '123', '2023-06-01 18:25:05'),
-(22, '1234', '1234', '2024-10-15 18:25:05'),
-(23, '12345', '12345', '2026-06-18 18:25:41');
+(20, 'Environmental Awareness Week', 'Activities promoting environmental awareness', '2025-04-01 00:00:00');
 
 --
 -- Indexes for dumped tables
